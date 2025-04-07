@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tienda de Gimnasio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            height: auto;
+        }
+
+        input[type="text"], input[type="email"], input[type="submit"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #008CBA;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #005f73;
+        }
+
+        #productList {
+            margin-top: 20px;
+        }
+
+        .product-item {
+            background-color: #f4f4f4;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            width: 30%; /* Ajuste para que quepan 3 por fila */
+            margin-left: 1%;
+            margin-right: 1%;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .product-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .page-btn {
+            margin: 5px;
+            padding: 8px 12px;
+            border: none;
+            background-color: #ddd;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .page-btn.active, .page-btn:hover {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        #pagination {
+            margin-top: 20px;
+        }
+
+        #mensajeExito {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Ajuste para el contenedor de productos */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Centrar los productos */
+        }
+
+        /* Separación entre las filas */
+        .product-list > .product-item {
+            margin-bottom: 20px; /* Espacio entre las filas */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tienda de Artículos de Gimnasio 🏋️</h1>
+
+        <!-- Lista de productos (inicialmente oculta) -->
+        <div id="productList" class="product-list"></div>
+
+        <!-- Paginación -->
+        <div id="pagination"></div>
+
+        <!-- Mensaje de éxito -->
+        <div id="mensajeExito">¡Enviado con éxito!</div>
+
+        <!-- Formulario -->
+        <form id="formulario" name="formulario">
+            <h2>Formulario de Contacto</h2>
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required><br><br>
+            <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required><br><br>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+
+    <div class="footer">
+        <p>Tienda de artículos deportivos © Todos los derechos reservados</p>
+    </div>
+
+    <script>
+        // Productos de ejemplo
+        const productos = [
+            { nombre: "Disco 5 KG", precio: 25, imagen: "https://via.placeholder.com/200?text=Disco+5+KG" },
+            { nombre: "Disco 10 KG", precio: 40, imagen: "https://via.placeholder.com/200?text=Disco+10+KG" },
+            { nombre: "Disco 15 KG", precio: 60, imagen: "https://via.placeholder.com/200?text=Disco+15+KG" },
+            { nombre: "Disco 20 KG", precio: 70, imagen: "https://via.placeholder.com/200?text=Disco+20+KG" },
+            { nombre: "Disco 25 KG", precio: 90, imagen: "https://via.placeholder.com/200?text=Disco+25+KG" },
+            { nombre: "Barra Crossfit", precio: 120, imagen: "https://via.placeholder.com/200?text=Barra+Crossfit" },
+            { nombre: "Barra Halterofilia", precio: 150, imagen: "https://via.placeholder.com/200?text=Barra+Halterofilia" },
+            { nombre: "Barra Sentadilla", precio: 160, imagen: "https://via.placeholder.com/200?text=Barra+Sentadilla" },
+            { nombre: "Barra Peso Muerto", precio: 170, imagen: "https://via.placeholder.com/200?text=Barra+Peso+Muerto" },
+            { nombre: "Mancuernas", precio: 50, imagen: "https://via.placeholder.com/200?text=Mancuernas" },
+            { nombre: "Cuerda para Saltar", precio: 15, imagen: "https://via.placeholder.com/200?text=Cuerda+para+Saltar" },
+            { nombre: "Pesas Rusas", precio: 35, imagen: "https://via.placeholder.com/200?text=Pesas+Rusas" },
+            { nombre: "Esterilla de Yoga", precio: 30, imagen: "https://via.placeholder.com/200?text=Estera+de+Yoga" }
+        ];
+    
+        const itemsPerPage = 6; // 6 productos por página (2 filas con 3 productos cada una)
+        let currentPage = 1;
+
+        // Mostrar los productos
+        function renderList(page) {
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedItems = productos.slice(start, end);
+            const productList = document.getElementById("productList");
+            productList.innerHTML = ''; // Limpiar el contenido
+
+            paginatedItems.forEach(producto => {
+                const div = document.createElement("div");
+                div.className = "product-item";
+                div.innerHTML = `
+                    <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-img">
+                    <h3>${producto.nombre}</h3>
+                    <p>Precio: ${producto.precio} €</p>
+                `;
+                productList.appendChild(div);
+            });
+        }
+
+        // Mostrar paginación
+        function renderPagination() {
+            const totalPages = Math.ceil(productos.length / itemsPerPage);
+            const pagination = document.getElementById("pagination");
+            pagination.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.className = "page-btn" + (i === currentPage ? " active" : "");
+                btn.innerText = i;
+                btn.addEventListener("click", function() {
+                    currentPage = i;
+                    renderList(currentPage);
+                    renderPagination();
+                });
+                pagination.appendChild(btn);
+            }
+        }
+
+        // Manejar el formulario para agregar productos
+        document.getElementById("formulario").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe de la manera tradicional
+
+            const nombre = document.getElementById("nombre").value.trim();
+            const correo = document.getElementById("correo").value.trim();
+
+            if (nombre === "" || correo === "") {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
+
+            // Mostrar el mensaje de éxito
+            document.getElementById("mensajeExito").style.display = "block";
+        });
+
+        // Mostrar los primeros productos al cargar la página
+        renderList(currentPage);
+        renderPagination();
+    </script>
+
+</body>
+</html>
