@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tienda de artículos deportivos</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Puedes mover esto a styles.css */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -13,24 +28,14 @@
 
   <section class="video">
     <h2>Video promocional</h2>
-    <iframe width="640" height="360" 
-      src="https://www.youtube.com/embed/lopJtAE39F8" 
-      title="Video promocional" frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-      <section class="video">
-  <h2>Video promocional</h2>
-  <div class="video-container">
-    <iframe width="640" height="360" 
-      src="https://www.youtube.com/embed/lopJtAE39F8" 
-      title="Video promocional" frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-    </iframe>
-  </div>
-</section>
-
-    </iframe>
+    <div class="video-container">
+      <iframe width="640" height="360" 
+        src="https://www.youtube.com/embed/lopJtAE39F8" 
+        title="Video promocional" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+    </div>
   </section>
   
   <section class="grafico">
