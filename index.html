@@ -1,220 +1,158 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tienda de Gimnasio</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda de artículos deportivos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            height: auto;
-        }
+    header {
+      background: #007BFF;
+      color: white;
+      padding: 1em;
+      text-align: center;
+      width: 100%;
+    }
 
-        input[type="text"], input[type="email"], input[type="submit"] {
-            padding: 10px;
-            margin: 10px 0;
-            width: 80%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    .productos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2em;
+      gap: 1.5em;
+    }
 
-        input[type="submit"] {
-            background-color: #008CBA;
-            color: white;
-            cursor: pointer;
-        }
+    .producto {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 1em;
+      width: 200px;
+      text-align: center;
+    }
 
-        input[type="submit"]:hover {
-            background-color: #005f73;
-        }
+    .producto img {
+      width: 100%;
+      border-radius: 8px;
+    }
 
-        #productList {
-            margin-top: 20px;
-        }
+    .precio {
+      font-weight: bold;
+      color: #28a745;
+    }
 
-        .product-item {
-            background-color: #f4f4f4;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-            width: 30%; /* Ajuste para que quepan 3 por fila */
-            margin-left: 1%;
-            margin-right: 1%;
-            display: inline-block;
-            vertical-align: top;
-        }
+    .formulario {
+      background: white;
+      padding: 2em;
+      margin: 2em;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-        .product-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
+    .formulario form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
 
-        .page-btn {
-            margin: 5px;
-            padding: 8px 12px;
-            border: none;
-            background-color: #ddd;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+    input,
+    button {
+      padding: 0.8em;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-        .page-btn.active, .page-btn:hover {
-            background-color: #008CBA;
-            color: white;
-        }
+    button {
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
 
-        #pagination {
-            margin-top: 20px;
-        }
+    footer {
+      text-align: center;
+      background: #222;
+      color: white;
+      padding: 1em 0;
+      margin-top: 2em;
+      width: 100%;
+    }
 
-        #mensajeExito {
-            display: none;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 5px;
-        }
+    .video {
+      text-align: center;
+      padding: 2em;
+      background: white;
+      margin: 2em auto;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-        .footer {
-            margin-top: 50px;
-            padding: 20px;
-            background-color: #f4f4f4;
-            text-align: center;
-            font-size: 14px;
-            color: #777;
-        }
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1em;
+    }
 
-        /* Ajuste para el contenedor de productos */
-        .product-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Centrar los productos */
-        }
-
-        /* Separación entre las filas */
-        .product-list > .product-item {
-            margin-bottom: 20px; /* Espacio entre las filas */
-        }
-
-    </style>
+    .video-container video {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+  </style>
 </head>
+
 <body>
+  <header>
+    <h1>Bienvenido a la Tienda de artículos deportivos</h1>
+  </header>
 
-    <div class="container">
-        <h1>Tienda de Artículos de Gimnasio 🏋️</h1>
+  <main>
+    <section class="productos">
+      <div class="producto">
+        <img src="https://via.placeholder.com/200" alt="Producto ejemplo" />
+        <h3>Balón de fútbol</h3>
+        <p class="precio">25 €</p>
+      </div>
+    </section>
 
-        <!-- Lista de productos (inicialmente oculta) -->
-        <div id="productList" class="product-list"></div>
+    <section class="formulario">
+      <form>
+        <input type="text" placeholder="Nombre" required />
+        <input type="email" placeholder="Correo electrónico" required />
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
 
-        <!-- Paginación -->
-        <div id="pagination"></div>
+    <section class="video">
+      <h2>Video Promocional</h2>
+      <div class="video-container">
+        <video autoplay loop muted playsinline>
+          <source src="tu-video.mp4" type="video/mp4">
+          <source src="tu-video.webm" type="video/webm">
+          Tu navegador no soporta video HTML5.
+        </video>
+      </div>
+    </section>
+  </main>
 
-        <!-- Mensaje de éxito -->
-        <div id="mensajeExito">¡Enviado con éxito!</div>
-
-        <!-- Formulario -->
-        <form id="formulario" name="formulario">
-            <h2>Formulario de Contacto</h2>
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required><br><br>
-            <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required><br><br>
-            <input type="submit" value="Enviar">
-        </form>
-    </div>
-
-    <div class="footer">
-        <p>Tienda de artículos deportivos © Todos los derechos reservados</p>
-    </div>
-
-    <script>
-        // Productos de ejemplo
-        const productos = [
-            { nombre: "Disco 5 KG", precio: 25, imagen: "https://via.placeholder.com/200?text=Disco+5+KG" },
-            { nombre: "Disco 10 KG", precio: 40, imagen: "https://via.placeholder.com/200?text=Disco+10+KG" },
-            { nombre: "Disco 15 KG", precio: 60, imagen: "https://via.placeholder.com/200?text=Disco+15+KG" },
-            { nombre: "Disco 20 KG", precio: 70, imagen: "https://via.placeholder.com/200?text=Disco+20+KG" },
-            { nombre: "Disco 25 KG", precio: 90, imagen: "https://via.placeholder.com/200?text=Disco+25+KG" },
-            { nombre: "Barra Crossfit", precio: 120, imagen: "https://via.placeholder.com/200?text=Barra+Crossfit" },
-            { nombre: "Barra Halterofilia", precio: 150, imagen: "https://via.placeholder.com/200?text=Barra+Halterofilia" },
-            { nombre: "Barra Sentadilla", precio: 160, imagen: "https://via.placeholder.com/200?text=Barra+Sentadilla" },
-            { nombre: "Barra Peso Muerto", precio: 170, imagen: "https://via.placeholder.com/200?text=Barra+Peso+Muerto" },
-            { nombre: "Mancuernas", precio: 50, imagen: "https://via.placeholder.com/200?text=Mancuernas" },
-            { nombre: "Cuerda para Saltar", precio: 15, imagen: "https://via.placeholder.com/200?text=Cuerda+para+Saltar" },
-            { nombre: "Pesas Rusas", precio: 35, imagen: "https://via.placeholder.com/200?text=Pesas+Rusas" },
-            { nombre: "Esterilla de Yoga", precio: 30, imagen: "https://via.placeholder.com/200?text=Estera+de+Yoga" }
-        ];
-    
-        const itemsPerPage = 6; // 6 productos por página (2 filas con 3 productos cada una)
-        let currentPage = 1;
-
-        // Mostrar los productos
-        function renderList(page) {
-            const start = (page - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const paginatedItems = productos.slice(start, end);
-            const productList = document.getElementById("productList");
-            productList.innerHTML = ''; // Limpiar el contenido
-
-            paginatedItems.forEach(producto => {
-                const div = document.createElement("div");
-                div.className = "product-item";
-                div.innerHTML = `
-                    <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-img">
-                    <h3>${producto.nombre}</h3>
-                    <p>Precio: ${producto.precio} €</p>
-                `;
-                productList.appendChild(div);
-            });
-        }
-
-        // Mostrar paginación
-        function renderPagination() {
-            const totalPages = Math.ceil(productos.length / itemsPerPage);
-            const pagination = document.getElementById("pagination");
-            pagination.innerHTML = '';
-
-            for (let i = 1; i <= totalPages; i++) {
-                const btn = document.createElement("button");
-                btn.className = "page-btn" + (i === currentPage ? " active" : "");
-                btn.innerText = i;
-                btn.addEventListener("click", function() {
-                    currentPage = i;
-                    renderList(currentPage);
-                    renderPagination();
-                });
-                pagination.appendChild(btn);
-            }
-        }
-
-        // Manejar el formulario para agregar productos
-        document.getElementById("formulario").addEventListener("submit", function(event) {
-            event.preventDefault(); // Evitar que el formulario se envíe de la manera tradicional
-
-            const nombre = document.getElementById("nombre").value.trim();
-            const correo = document.getElementById("correo").value.trim();
-
-            if (nombre === "" || correo === "") {
-                alert("Por favor, completa todos los campos.");
-                return;
-            }
-
-            // Mostrar el mensaje de éxito
-            document.getElementById("mensajeExito").style.display = "block";
-        });
-
-        // Mostrar los primeros productos al cargar la página
-        renderList(currentPage);
-        renderPagination();
-    </script>
-
+  <footer>
+    Tienda de artículos deportivos © Todos los derechos reservados
+  </footer>
 </body>
 </html>
